@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- msg is a attribute sent to Todos.vue -->
-    <todos msg="Todo list"/>
+    <todos/>
   </div>
 </template>
 

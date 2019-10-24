@@ -7,11 +7,25 @@ export default class RestService {
     //eg Todos.vue file.
     async getTodos() {
         //Get todos from the backend.
-        return axios.get('');
+        return axios.get('/api/getTodos');
     }
-    async saveTodo(values) {
+    async deleteTodo(id) {
+        return axios.get('/api/deleteTodo/'+id);
+    }
+
+    async saveTodo(task) {
         //Post values to endpoint, second argument is the javascript object
         //that gets transformed into a json-formatted body.
-        return axios.post('', values);
+        return axios.post('/api/saveTodo', {
+            username: 'user01',
+            task: task,
+        });
+    }
+    async updateTodo(id, done) {
+        return axios.post('/api/updateTodo/'+id, {
+            done: done,
+        })
     }
 }
+
+

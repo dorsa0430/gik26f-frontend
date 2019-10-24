@@ -1,73 +1,39 @@
 <template>
     <div class="list-wrapper">
-        <h1> My to do list </h1>
+        <h1>My to do list</h1>
         <div class="list-box">
-
-            <form v-on:submit="saveTodo" class="input-wrapper">
-                <input type="text" placeholder="Add to do..." v-model="task">
+            <div class="input-wrapper">
+                <input type="text" placeholder="type something...">
                 <button>Add</button>
-            </form>
-
-
+            </div>
             <ul>
-                <li v-for="item in todos" v-on:click="updateTodo(item.id, !item.done)" :class="[item.done?'checked':'']">
+                <li v-for="item in todos">
                     <span>{{item.task}}</span>
-                    <span class="close" v-on:click="deleteTodo(item.id)"></span>
+                    <span class="close"></span>
                 </li>
-
             </ul>
-
-
         </div>
     </div>
-
-
 </template>
-
 
 <script>
     import RestService from '../RESTService';
-    const service = new RestService();
 
+    const service = new RestService();
     export default {
         name: 'Todos',
         data() {
             return {
-                todos: [],
-                task: '',
+                todos: []
+
             }
         },
+
         created() {
             this.getTodos();
-        },
+        }
+        ,
         methods: {
-            async updateTodo(id, done) {
-                try {
-                    await service.updateTodo(id, done);
-                    await this.getTodos();
-                }catch (e) {
-                    console.error(e)
-                }
-            },
-            async saveTodo(e) {
-                e.preventDefault();
-                try {
-                    await service.saveTodo(this.task);
-                    await this.getTodos();
-                }catch (e) {
-                    console.error(e)
-                }
-            },
-            async deleteTodo(id) {
-                try {
-
-                    await service.deleteTodo(id);
-                    await this.getTodos();
-                } catch (error) {
-                    console.log(error);
-                }
-
-            },
             async getTodos() {
                 try {
                     let result = await service.getTodos();
@@ -77,16 +43,15 @@
                 }
             }
         }
-
     }
 </script>
-<style scoped lang="scss">
 
+<style scoped lang="scss">
     *, *:after, *:before {
         box-sizing: border-box;
     }
 
-    html, body {
+    htm, body {
         margin: 0;
         padding: 0;
     }
@@ -148,6 +113,10 @@
         display: flex;
     }
 
+    .input-wrapper {
+        display: flex;
+    }
+
     .input-wrapper button {
         border: none;
         outline: none;
@@ -183,16 +152,9 @@
         height: 56px;
         cursor: pointer;
     }
-    ul > li.checked {
-        text-decoration: line-through;
-        background: #333;
-        color: #fff;
-    }
-
 
     ul > li:hover {
         background: #eee;
     }
 
 </style>
-
