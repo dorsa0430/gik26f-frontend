@@ -13,6 +13,9 @@
                 <li v-for="item in todos" v-on:click="updateTodo(item.id, !item.done)" :class="[item.done?'checked':'']">
                     <span>{{item.task}}</span>
                     <span class="close" v-on:click="deleteTodo(item.id)"></span>
+                    <span>={{item.date}}</span>
+                    <span>={{item.deadline}}</span>
+                    <span>={{item.name}}</span>
                 </li>
 
             </ul>
